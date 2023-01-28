@@ -1,0 +1,23 @@
+server.port: 8080
+server.servlet.context-path: /api
+
+#oltp
+spring.datasource.jdbc-url: jdbc:oracle:thin:@//localhost:1521/orclpdb
+spring.datasource.username: oltp_admin
+spring.datasource.password: pass_oltp
+spring.datasource.driver-class-name: oracle.jdbc.OracleDriver
+#spring.datasource.hikari.jdbc-url: ${spring.datasource.url}
+#spring.datasource.hikari.jdbcUrl: ${spring.datasource.url}
+
+#warehouse
+warehouse.datasource.jdbc-url: jdbc:oracle:thin:@//localhost:1521/orclpdb
+warehouse.datasource.username: warehouse_admin
+warehouse.datasource.password: pass_warehouse
+warehouse.datasource.driver-class-name: oracle.jdbc.OracleDriver
+
+spring.jpa.hibernate.ddl-auto: update
+spring.jpa.hibernate.show-sql: true
+
+spring.jpa.database-platform: org.hibernate.dialect.Oracle12cDialect
+
+
