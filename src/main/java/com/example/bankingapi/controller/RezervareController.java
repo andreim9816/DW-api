@@ -1,8 +1,8 @@
 package com.example.bankingapi.controller;
 
-import com.example.bankingapi.dto.oltp.ZborDtoOLTP;
+import com.example.bankingapi.dto.oltp.RezervareDtoOLTP;
 import com.example.bankingapi.service.oltp.MapperOLTP;
-import com.example.bankingapi.service.oltp.ZborServiceOLTP;
+import com.example.bankingapi.service.oltp.RezervariServiceOLTP;
 import com.example.bankingapi.service.warehouse.MapperWH;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -16,25 +16,25 @@ import java.util.stream.Collectors;
 @Validated
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/zboruri")
-public class ZborController {
+@RequestMapping("/rezervari")
+public class RezervareController {
 
-    private final ZborServiceOLTP zborServiceOLTP;
+    private final RezervariServiceOLTP rezervariServiceOLTP;
     //    private final ClasaZborServiceWH clasaZborServiceWH;
     private final MapperOLTP mapperOLTP;
     private final MapperWH mapperWH;
 
     @GetMapping("/OLTP")
-    public List<ZborDtoOLTP> getAllOLTP(@RequestParam("sortOrder") String sortOrder,
-                                        @RequestParam("pageNumber") Integer pageNumber,
-                                        @RequestParam("pageSize") Integer pageSize) {
+    public List<RezervareDtoOLTP> getAllOLTP(@RequestParam("sortOrder") String sortOrder,
+                                             @RequestParam("pageNumber") Integer pageNumber,
+                                             @RequestParam("pageSize") Integer pageSize) {
         PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, Sort.by("id").descending());
-        return zborServiceOLTP.findAll(pageRequest).stream().map(mapperOLTP::toDto).collect(Collectors.toList());
+        return rezervariServiceOLTP.findAll(pageRequest).stream().map(mapperOLTP::toDto).collect(Collectors.toList());
     }
 
     @PostMapping("/OLTP")
-    public ZborDtoOLTP addOLTP(@RequestBody ZborDtoOLTP reqDto) {
-        return mapperOLTP.toDto(zborServiceOLTP.add(reqDto));
+    public RezervareDtoOLTP addOLTP(@RequestBody RezervareDtoOLTP reqDto) {
+        return mapperOLTP.toDto(rezervariServiceOLTP.add(reqDto));
     }
 
 //    @GetMapping("/WH")

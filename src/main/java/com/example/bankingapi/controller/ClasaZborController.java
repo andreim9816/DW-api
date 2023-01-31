@@ -1,7 +1,6 @@
 package com.example.bankingapi.controller;
 
 import com.example.bankingapi.dto.oltp.ClasaZborDtoOLTP;
-import com.example.bankingapi.dto.warehouse.ClasaZborDtoWH;
 import com.example.bankingapi.service.oltp.ClasaZborServiceOLTP;
 import com.example.bankingapi.service.oltp.MapperOLTP;
 import com.example.bankingapi.service.warehouse.ClasaZborServiceWH;
@@ -35,12 +34,12 @@ public class ClasaZborController {
     }
 
     @GetMapping("/WH")
-    public List<ClasaZborDtoWH> getAllWH() {
+    public List<ClasaZborDtoOLTP> getAllWH() {
         return clasaZborServiceWH.findAll().stream().map(mapperWH::toDto).collect(Collectors.toList());
     }
 
-    @PostMapping("/WH")
-    public ClasaZborDtoWH addWH(@RequestBody ClasaZborDtoWH reqDto) {
-        return mapperWH.toDto(clasaZborServiceWH.add(reqDto));
-    }
+//    @PostMapping("/WH")
+//    public ClasaZborDtoWH addWH(@RequestBody ClasaZborDtoWH reqDto) {
+//        return mapperWH.toDto(clasaZborServiceWH.add(reqDto));
+//    }
 }

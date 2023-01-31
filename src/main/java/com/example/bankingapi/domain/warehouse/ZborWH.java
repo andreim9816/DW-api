@@ -1,27 +1,26 @@
-package com.example.bankingapi.domain.oltp;
+package com.example.bankingapi.domain.warehouse;
 
+import com.example.bankingapi.domain.oltp.Destinatie;
+import com.example.bankingapi.domain.oltp.OperatorZbor;
 import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+@Table(name = "ZBOR")
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Zbor {
+public class ZborWH {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "zbor_seq")
     @SequenceGenerator(sequenceName = "zbor_seq", allocationSize = 1, name = "zbor_seq")
     @Column(name = "ZBOR_ID")
     private Long id;
-
-    @ManyToOne
-    @JoinColumn(name = "OPERATOR_ID")
-    private OperatorZbor operatorZbor;
 
     @Column(name = "AERONAVA_ID")
     private String aeronavaId;
@@ -34,18 +33,4 @@ public class Zbor {
     private Integer totalLocuri;
 
     private boolean anulat;
-
-    @Column(name = "DATA_PLECARE")
-    private Date dataPlecare;
-
-    @Column(name = "DATA_SOSIRE")
-    private Date dataSosire;
-
-    @ManyToOne
-    @JoinColumn(name = "LOCATIE_PLECARE_ID")
-    private Destinatie locatiePlecare;
-
-    @ManyToOne
-    @JoinColumn(name = "LOCATIE_SOSIRE_ID")
-    private Destinatie locatieSosire;
 }

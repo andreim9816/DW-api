@@ -1,11 +1,10 @@
 package com.example.bankingapi.controller;
 
 import com.example.bankingapi.dto.oltp.MetodaPlataDtoOLTP;
-import com.example.bankingapi.dto.oltp.OperatorZborDtoOLTP;
 import com.example.bankingapi.service.oltp.MapperOLTP;
 import com.example.bankingapi.service.oltp.MetodaPlataServiceOLTP;
-import com.example.bankingapi.service.oltp.OperatorZborServiceOLTP;
 import com.example.bankingapi.service.warehouse.MapperWH;
+import com.example.bankingapi.service.warehouse.MetodaPlataServiceWH;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +19,7 @@ import java.util.stream.Collectors;
 public class MetodaPlataController {
 
     private final MetodaPlataServiceOLTP metodaPlataServiceOLTP;
-//    private final ClasaZborServiceWH clasaZborServiceWH;
+    private final MetodaPlataServiceWH metodaPlataServiceWH;
     private final MapperOLTP mapperOLTP;
     private final MapperWH mapperWH;
 
@@ -34,10 +33,10 @@ public class MetodaPlataController {
         return mapperOLTP.toDto(metodaPlataServiceOLTP.add(reqDto));
     }
 
-//    @GetMapping("/WH")
-//    public List<ClasaZborDtoWH> getAllWH() {
-//        return clasaZborServiceWH.findAll().stream().map(mapperWH::toDto).collect(Collectors.toList());
-//    }
+    @GetMapping("/WH")
+    public List<MetodaPlataDtoOLTP> getAllWH() {
+        return metodaPlataServiceWH.findAll().stream().map(mapperWH::toDto).collect(Collectors.toList());
+    }
 //
 //    @PostMapping("/WH")
 //    public ClasaZborDtoWH addWH(@RequestBody ClasaZborDtoWH reqDto) {

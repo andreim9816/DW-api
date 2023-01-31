@@ -5,6 +5,7 @@ import com.example.bankingapi.dto.oltp.OperatorZborDtoOLTP;
 import com.example.bankingapi.service.oltp.DestinatieServiceOLTP;
 import com.example.bankingapi.service.oltp.MapperOLTP;
 import com.example.bankingapi.service.oltp.OperatorZborServiceOLTP;
+import com.example.bankingapi.service.warehouse.DestinatieServiceWH;
 import com.example.bankingapi.service.warehouse.MapperWH;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
@@ -20,7 +21,7 @@ import java.util.stream.Collectors;
 public class DestinatieController {
 
     private final DestinatieServiceOLTP destinatieServiceOLTP;
-//    private final ClasaZborServiceWH clasaZborServiceWH;
+    private final DestinatieServiceWH destinatieServiceDW;
     private final MapperOLTP mapperOLTP;
     private final MapperWH mapperWH;
 
@@ -34,10 +35,10 @@ public class DestinatieController {
         return mapperOLTP.toDto(destinatieServiceOLTP.add(reqDto));
     }
 
-//    @GetMapping("/WH")
-//    public List<ClasaZborDtoWH> getAllWH() {
-//        return clasaZborServiceWH.findAll().stream().map(mapperWH::toDto).collect(Collectors.toList());
-//    }
+    @GetMapping("/WH")
+    public List<DestinatieDtoOLTP> getAllWH() {
+        return destinatieServiceDW.findAll().stream().map(mapperWH::toDto).collect(Collectors.toList());
+    }
 //
 //    @PostMapping("/WH")
 //    public ClasaZborDtoWH addWH(@RequestBody ClasaZborDtoWH reqDto) {

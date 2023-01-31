@@ -1,26 +1,26 @@
 package com.example.bankingapi.service.oltp;
 
-import com.example.bankingapi.domain.oltp.OperatorZbor;
-import com.example.bankingapi.dto.oltp.OperatorZborDtoOLTP;
-import com.example.bankingapi.repository.oltp.OperatorZborRepositoryOLTP;
+import com.example.bankingapi.domain.oltp.Zbor;
+import com.example.bankingapi.dto.oltp.ZborDtoOLTP;
+import com.example.bankingapi.repository.oltp.ZborRepositoryOLTP;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class OperatorZborServiceOLTP {
+public class ZborServiceOLTP {
 
-    private final OperatorZborRepositoryOLTP repositoryOLTP;
+    private final ZborRepositoryOLTP zborRepositoryOLTP;
     private final MapperOLTP mapper;
 
-    public List<OperatorZbor> findAll() {
-        return repositoryOLTP.findAll();
+    public Page<Zbor> findAll(Pageable pageable) {
+        return zborRepositoryOLTP.findAll(pageable);
     }
 
-    public OperatorZbor add(OperatorZborDtoOLTP reqDto) {
-        return repositoryOLTP.save(mapper.toEntity(reqDto));
+    public Zbor add(ZborDtoOLTP reqDto) {
+        return zborRepositoryOLTP.save(mapper.toEntity(reqDto));
     }
 
 }

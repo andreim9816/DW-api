@@ -14,7 +14,8 @@ import java.util.Date;
 public class Rezervare {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "rezervare_seq")
+    @SequenceGenerator(sequenceName = "rezervare_seq", allocationSize = 1, name = "rezervare_seq")
     @Column(name = "REZERVARE_ID")
     private Long id;
 
@@ -43,7 +44,7 @@ public class Rezervare {
 
     @ManyToOne
     @JoinColumn(name = "CLASA_ZBOR_ID")
-    private ClasaZborOLTP clasaZbor;
+    private ClasaZbor clasaZbor;
 
     @ManyToOne
     @JoinColumn(name = "METODA_PLATA_ID")

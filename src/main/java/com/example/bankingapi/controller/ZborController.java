@@ -1,14 +1,14 @@
 package com.example.bankingapi.controller;
 
-import com.example.bankingapi.dto.oltp.ClasaZborDtoOLTP;
-import com.example.bankingapi.dto.oltp.OperatorZborDtoOLTP;
-import com.example.bankingapi.dto.warehouse.ClasaZborDtoWH;
-import com.example.bankingapi.service.oltp.ClasaZborServiceOLTP;
+import com.example.bankingapi.dto.oltp.ZborDtoOLTP;
+import com.example.bankingapi.dto.warehouse.ZborDtoWH;
 import com.example.bankingapi.service.oltp.MapperOLTP;
-import com.example.bankingapi.service.oltp.OperatorZborServiceOLTP;
-import com.example.bankingapi.service.warehouse.ClasaZborServiceWH;
+import com.example.bankingapi.service.oltp.ZborServiceOLTP;
 import com.example.bankingapi.service.warehouse.MapperWH;
+import com.example.bankingapi.service.warehouse.ZborServiceWH;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,28 +18,34 @@ import java.util.stream.Collectors;
 @Validated
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/operatori-zbor")
-public class OperatorZborController {
+@RequestMapping("/zboruri")
+public class ZborController {
 
-    private final OperatorZborServiceOLTP operatorZborServiceOLTP;
-//    private final ClasaZborServiceWH clasaZborServiceWH;
+    private final ZborServiceOLTP zborServiceOLTP;
+    private final ZborServiceWH zborServiceWH;
     private final MapperOLTP mapperOLTP;
     private final MapperWH mapperWH;
 
     @GetMapping("/OLTP")
-    public List<OperatorZborDtoOLTP> getAllOLTP() {
-        return operatorZborServiceOLTP.findAll().stream().map(mapperOLTP::toDto).collect(Collectors.toList());
+    public List<ZborDtoOLTP> getAllOLTP(@RequestParam("sortOrder") String sortOrder,
+                                        @RequestParam("pageNumber") Integer pageNumber,
+                                        @RequestParam("pageSize") Integer pageSize) {
+        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, Sort.by("id").descending());
+        return zborServiceOLTP.findAll(pageRequest).stream().map(mapperOLTP::toDto).collect(Collectors.toList());
     }
 
     @PostMapping("/OLTP")
-    public OperatorZborDtoOLTP addOLTP(@RequestBody OperatorZborDtoOLTP reqDto) {
-        return mapperOLTP.toDto(operatorZborServiceOLTP.add(reqDto));
+    public ZborDtoOLTP addOLTP(@RequestBody ZborDtoOLTP reqDto) {
+        return mapperOLTP.toDto(zborServiceOLTP.add(reqDto));
     }
 
-//    @GetMapping("/WH")
-//    public List<ClasaZborDtoWH> getAllWH() {
-//        return clasaZborServiceWH.findAll().stream().map(mapperWH::toDto).collect(Collectors.toList());
-//    }
+    @GetMapping("/WH")
+    public List<ZborDtoWH> getAllWH(@RequestParam("sortOrder") String sortOrder,
+                                        @RequestParam("pageNumber") Integer pageNumber,
+                                        @RequestParam("pageSize") Integer pageSize) {
+        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, Sort.by("id").descending());
+        return zborServiceWH.findAll(pageRequest).stream().map(mapperWH::toDto).collect(Collectors.toList());
+    }
 //
 //    @PostMapping("/WH")
 //    public ClasaZborDtoWH addWH(@RequestBody ClasaZborDtoWH reqDto) {

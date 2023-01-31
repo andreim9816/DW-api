@@ -1,4 +1,4 @@
-package com.example.bankingapi.domain.oltp;
+package com.example.bankingapi.domain.warehouse;
 
 import lombok.*;
 

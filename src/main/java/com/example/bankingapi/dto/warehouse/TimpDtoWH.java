@@ -1,34 +1,23 @@
-package com.example.bankingapi.domain.warehouse;
+package com.example.bankingapi.dto.warehouse;
 
 import lombok.*;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import java.util.Date;
 
-@Entity
-@Table(name = "TIMP")
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class TimpWH {
+public class TimpDtoWH {
 
-    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "TIMP_ID")
     private Date id;
 
-    @Column(name = "ZI_AN")
     private Integer ziAn;
 
-    @Column(name = "ZI_LUNA")
     private Integer ziLuna;
 
-    @Column(name = "ZI_SAPTAMANA")
     private Integer ziSaptamana;
 
     private Integer luna;
@@ -40,5 +29,4 @@ public class TimpWH {
     private Integer ora;
 
     private Integer minut;
-
 }

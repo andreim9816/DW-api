@@ -1,6 +1,6 @@
 package com.example.bankingapi.service.oltp;
 
-import com.example.bankingapi.domain.oltp.ClasaZborOLTP;
+import com.example.bankingapi.domain.oltp.ClasaZbor;
 import com.example.bankingapi.dto.oltp.ClasaZborDtoOLTP;
 import com.example.bankingapi.repository.oltp.ClasaZborRepositoryOLTP;
 import lombok.RequiredArgsConstructor;
@@ -15,11 +15,11 @@ public class ClasaZborServiceOLTP {
     private final ClasaZborRepositoryOLTP clasaZborRepository;
     private final MapperOLTP mapper;
 
-    public List<ClasaZborOLTP> findAll() {
+    public List<ClasaZbor> findAll() {
         return clasaZborRepository.findAll();
     }
 
-    public ClasaZborOLTP add(ClasaZborDtoOLTP reqDto) {
+    public ClasaZbor add(ClasaZborDtoOLTP reqDto) {
         return clasaZborRepository.save(mapper.toEntity(reqDto));
     }
 
