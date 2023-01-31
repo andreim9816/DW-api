@@ -1,34 +1,34 @@
-//package com.example.bankingapi.domain.warehouse;
-//
-//import com.example.bankingapi.domain.oltp.*;
-//import lombok.*;
-//
-//import javax.persistence.*;
-//
-//@Entity
-//@Table(name = "REZERVARE")
-//@Getter
-//@Setter
-//@Builder
-//@NoArgsConstructor
-//@AllArgsConstructor
-//public class RezervareWH {
-//
-//    @EmbeddedId
-//    private RezervareId id;
-//
-//    @Column(name = "NR_PASAGERI")
-//    private Integer nrPasageri;
-//
-//    @Column(name = "NR_PASAGERI_FEMEI")
-//    private Integer nrPasageriFemei;
-//
-//    @Column(name = "NR_PASAGERI_BARBATI")
-//    private Integer nrPasageriBarbati;
-//
-//    @Column(name = "SUMA_TOTALA")
-//    private Long sumaTotala;
-//
+package com.example.bankingapi.domain.warehouse;
+
+import com.example.bankingapi.domain.oltp.Zbor;
+import lombok.*;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name = "REZERVARE")
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class RezervareWH {
+
+    @EmbeddedId
+    private RezervareId id;
+
+    @Column(name = "NR_PASAGERI")
+    private Integer nrPasageri;
+
+    @Column(name = "NR_PASAGERI_FEMEI")
+    private Integer nrPasageriFemei;
+
+    @Column(name = "NR_PASAGERI_BARBATI")
+    private Integer nrPasageriBarbati;
+
+    @Column(name = "SUMA_TOTALA")
+    private Double sumaTotala;
+
 //    @Column(name = "CLIENT_ID")
 //    private Long clientId;
 //
@@ -58,7 +58,7 @@
 //
 //    @ManyToOne
 //    @JoinColumn(name = "ZBOR_ID")
-//    Zbor zbor;
+//    ZborWH zbor;
 //
 //    @ManyToOne
 //    @JoinColumn(name = "CLASA_ZBOR_ID")
@@ -67,4 +67,4 @@
 //    @ManyToOne
 //    @JoinColumn(name = "METODA_PLATA_ID")
 //    MetodaPlata metodaPlata;
-//}
+}

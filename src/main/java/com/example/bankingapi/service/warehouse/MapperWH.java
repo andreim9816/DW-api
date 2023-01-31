@@ -5,6 +5,7 @@ import com.example.bankingapi.dto.oltp.ClasaZborDtoOLTP;
 import com.example.bankingapi.dto.oltp.DestinatieDtoOLTP;
 import com.example.bankingapi.dto.oltp.MetodaPlataDtoOLTP;
 import com.example.bankingapi.dto.oltp.OperatorZborDtoOLTP;
+import com.example.bankingapi.dto.warehouse.RezervareDtoWH;
 import com.example.bankingapi.dto.warehouse.TimpDtoWH;
 import com.example.bankingapi.dto.warehouse.ZborDtoWH;
 import org.springframework.stereotype.Component;
@@ -115,6 +116,48 @@ public class MapperWH {
                 .weekend(entity.getWeekend())
                 .ora(entity.getOra())
                 .minut(entity.getMinut())
+                .build();
+    }
+
+    public RezervareWH toEntity(RezervareDtoWH dto) {
+        RezervareId rezervareId = RezervareId.builder()
+                .clientId(dto.getClientId())
+                .dataRezervare(dto.getDataRezervareId())
+                .dataPlecare(dto.getDataPlecareId())
+                .dataSosire(dto.getDataSosireId())
+                .locatiePlecareId(dto.getLocatiePlecareId())
+                .locatieSosireId(dto.getLocatieSosireId())
+                .operatorZborId(dto.getOperatorZborId())
+                .zborId(dto.getZborId())
+                .clasaZborId(dto.getClasaZborId())
+                .metodaPlataId(dto.getMetodaPlataId())
+                .build();
+
+        return RezervareWH.builder()
+                .id(rezervareId)
+                .nrPasageri(dto.getNrPasageri())
+                .nrPasageriFemei(dto.getNrPasageriFemei())
+                .nrPasageriBarbati(dto.getNrPasageriBarbati())
+                .sumaTotala(dto.getSumaTotala())
+                .build();
+    }
+
+    public RezervareDtoWH toDto(RezervareWH entity) {
+        return RezervareDtoWH.builder()
+                .nrPasageri(entity.getNrPasageri())
+                .nrPasageriFemei(entity.getNrPasageriFemei())
+                .nrPasageriBarbati(entity.getNrPasageriBarbati())
+                .dataRezervareId(entity.getId().getDataRezervare())
+                .dataPlecareId(entity.getId().getDataPlecare())
+                .dataSosireId(entity.getId().getDataSosire())
+                .locatiePlecareId(entity.getId().getLocatiePlecareId())
+                .locatieSosireId(entity.getId().getLocatieSosireId())
+                .operatorZborId(entity.getId().getOperatorZborId())
+                .sumaTotala(entity.getSumaTotala())
+                .clientId(entity.getId().getClientId())
+                .zborId(entity.getId().getZborId())
+                .clasaZborId(entity.getId().getClasaZborId())
+                .metodaPlataId(entity.getId().getMetodaPlataId())
                 .build();
     }
 

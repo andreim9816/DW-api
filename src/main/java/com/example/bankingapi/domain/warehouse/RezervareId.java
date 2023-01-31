@@ -2,10 +2,12 @@ package com.example.bankingapi.domain.warehouse;
 
 import lombok.*;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import java.io.Serializable;
+import java.util.Date;
 
 @Embeddable
 @Getter
@@ -13,42 +15,73 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
+@Builder
 public class RezervareId implements Serializable {
     private static final long serialVersionUID = -3879046863664637003L;
 
-    @ManyToOne
-    @JoinColumn(name = "DATA_REZERVARE_ID")
-    TimpWH dataRezervare;
+    @Column(name = "CLIENT_ID")
+    private Long clientId;
 
-    @ManyToOne
-    @JoinColumn(name = "DATA_PLECARE_ID")
-    TimpWH dataPlecare;
+    @Column(name = "DATA_REZERVARE_ID")
+    private Date dataRezervare;
 
-    @ManyToOne
-    @JoinColumn(name = "DATA_SOSIRE_ID")
-    TimpWH dataSosire;
+    @Column(name = "DATA_PLECARE_ID")
+    private Date dataPlecare;
 
-    @ManyToOne
-    @JoinColumn(name = "LOCATIE_PLECARE_ID")
-    Destinatie locatiePlecare;
+    @Column(name = "DATA_SOSIRE_ID")
+    private Date dataSosire;
 
-    @ManyToOne
-    @JoinColumn(name = "LOCATIE_SOSIRE_ID")
-    Destinatie locatieSosire;
+    @Column(name = "LOCATIE_PLECARE_ID")
+    private String locatiePlecareId;
 
-    @ManyToOne
-    @JoinColumn(name = "OPERATOR_ID")
-    OperatorZbor operatorZbor;
+    @Column(name = "LOCATIE_SOSIRE_ID")
+    private String locatieSosireId;
 
-    @ManyToOne
-    @JoinColumn(name = "ZBOR_ID")
-    ZborWH zbor;
+    @Column(name = "OPERATOR_ID")
+    private String operatorZborId;
 
-    @ManyToOne
-    @JoinColumn(name = "CLASA_ZBOR_ID")
-    ClasaZbor clasaZbor;
+    @Column(name = "ZBOR_ID")
+    private Long zborId;
 
-    @ManyToOne
-    @JoinColumn(name = "METODA_PLATA_ID")
-    MetodaPlata metodaPlata;
+    @Column(name = "CLASA_ZBOR_ID")
+    private Long clasaZborId;
+
+    @Column(name = "METODA_PLATA_ID")
+    private Long metodaPlataId;
+
+//    @ManyToOne
+//    @JoinColumn(name = "DATA_REZERVARE_ID")
+//    TimpWH dataRezervare;
+//
+//    @ManyToOne
+//    @JoinColumn(name = "DATA_PLECARE_ID")
+//    TimpWH dataPlecare;
+//
+//    @ManyToOne
+//    @JoinColumn(name = "DATA_SOSIRE_ID")
+//    TimpWH dataSosire;
+//
+//    @ManyToOne
+//    @JoinColumn(name = "LOCATIE_PLECARE_ID")
+//    Destinatie locatiePlecare;
+//
+//    @ManyToOne
+//    @JoinColumn(name = "LOCATIE_SOSIRE_ID")
+//    Destinatie locatieSosire;
+//
+//    @ManyToOne
+//    @JoinColumn(name = "OPERATOR_ID")
+//    OperatorZbor operatorZbor;
+//
+//    @ManyToOne
+//    @JoinColumn(name = "ZBOR_ID")
+//    ZborWH zbor;
+//
+//    @ManyToOne
+//    @JoinColumn(name = "CLASA_ZBOR_ID")
+//    ClasaZbor clasaZbor;
+//
+//    @ManyToOne
+//    @JoinColumn(name = "METODA_PLATA_ID")
+//    MetodaPlata metodaPlata;
 }

@@ -12,7 +12,8 @@ import javax.persistence.*;
 @AllArgsConstructor
 public class Client {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "client_seq")
+    @SequenceGenerator(sequenceName = "client_seq", allocationSize = 1, name = "client_seq")
     @Column(name = "CLIENT_ID")
     private Long id;
 
