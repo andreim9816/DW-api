@@ -1,10 +1,10 @@
 package com.example.bankingapi.controller;
 
 import com.example.bankingapi.dto.oltp.ClasaZborDtoOLTP;
-import com.example.bankingapi.service.oltp.ClasaZborServiceOLTP;
-import com.example.bankingapi.service.oltp.MapperOLTP;
-import com.example.bankingapi.service.warehouse.ClasaZborServiceWH;
-import com.example.bankingapi.service.warehouse.MapperWH;
+import com.example.bankingapi.service.lowcost.ClasaZborServiceLow;
+import com.example.bankingapi.service.lowcost.MapperOLTP;
+import com.example.bankingapi.service.nonlowcost.ClasaZborServiceNonLow;
+import com.example.bankingapi.service.nonlowcost.MapperWH;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -18,24 +18,24 @@ import java.util.stream.Collectors;
 @RequestMapping("/clase-zbor")
 public class ClasaZborController {
 
-    private final ClasaZborServiceOLTP clasaZborServiceOLTP;
-    private final ClasaZborServiceWH clasaZborServiceWH;
+    private final ClasaZborServiceLow clasaZborServiceLow;
+    private final ClasaZborServiceNonLow clasaZborServiceNonLow;
     private final MapperOLTP mapperOLTP;
     private final MapperWH mapperWH;
 
     @GetMapping("/OLTP")
     public List<ClasaZborDtoOLTP> getAllOLTP() {
-        return clasaZborServiceOLTP.findAll().stream().map(mapperOLTP::toDto).collect(Collectors.toList());
+        return clasaZborServiceLow.findAll().stream().map(mapperOLTP::toDto).collect(Collectors.toList());
     }
 
     @PostMapping("/OLTP")
     public ClasaZborDtoOLTP addOLTP(@RequestBody ClasaZborDtoOLTP reqDto) {
-        return mapperOLTP.toDto(clasaZborServiceOLTP.add(reqDto));
+        return mapperOLTP.toDto(clasaZborServiceLow.add(reqDto));
     }
 
     @GetMapping("/WH")
     public List<ClasaZborDtoOLTP> getAllWH() {
-        return clasaZborServiceWH.findAll().stream().map(mapperWH::toDto).collect(Collectors.toList());
+        return clasaZborServiceNonLow.findAll().stream().map(mapperWH::toDto).collect(Collectors.toList());
     }
 
 //    @PostMapping("/WH")

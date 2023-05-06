@@ -1,19 +1,25 @@
 server.port: 8080
 server.servlet.context-path: /api
 
-#oltp
+#LOWCOST
 spring.datasource.jdbc-url: jdbc:oracle:thin:@//localhost:1521/orclpdb
-spring.datasource.username: oltp_admin
-spring.datasource.password: pass_oltp
+spring.datasource.username: dbb_admin
+spring.datasource.password: dbb_admin
 spring.datasource.driver-class-name: oracle.jdbc.OracleDriver
 #spring.datasource.hikari.jdbc-url: ${spring.datasource.url}
 #spring.datasource.hikari.jdbcUrl: ${spring.datasource.url}
 
-#warehouse
-warehouse.datasource.jdbc-url: jdbc:oracle:thin:@//localhost:1521/orclpdb
-warehouse.datasource.username: warehouse_admin
-warehouse.datasource.password: pass_warehouse
-warehouse.datasource.driver-class-name: oracle.jdbc.OracleDriver
+#NON_LOWCOST
+nonlowcost.datasource.jdbc-url: jdbc:oracle:thin:@//localhost:1521/orclpdb_2
+nonlowcost.datasource.username: dbb_admin
+nonlowcost.datasource.password: dbb_admin
+nonlowcost.datasource.driver-class-name: oracle.jdbc.OracleDriver
+
+#GLOBAL
+global.datasource.jdbc-url: jdbc:oracle:thin:@//localhost:1521/orclpdb
+global.datasource.username: global_admin
+global.datasource.password: global_admin
+global.datasource.driver-class-name: oracle.jdbc.OracleDriver
 
 spring.jpa.hibernate.ddl-auto: update
 spring.jpa.hibernate.show-sql: true

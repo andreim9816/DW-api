@@ -1,12 +1,10 @@
 package com.example.bankingapi.controller;
 
 import com.example.bankingapi.dto.oltp.DestinatieDtoOLTP;
-import com.example.bankingapi.dto.oltp.OperatorZborDtoOLTP;
-import com.example.bankingapi.service.oltp.DestinatieServiceOLTP;
-import com.example.bankingapi.service.oltp.MapperOLTP;
-import com.example.bankingapi.service.oltp.OperatorZborServiceOLTP;
-import com.example.bankingapi.service.warehouse.DestinatieServiceWH;
-import com.example.bankingapi.service.warehouse.MapperWH;
+import com.example.bankingapi.service.lowcost.DestinatieServiceLow;
+import com.example.bankingapi.service.lowcost.MapperOLTP;
+import com.example.bankingapi.service.nonlowcost.DestinatieServiceNonLow;
+import com.example.bankingapi.service.nonlowcost.MapperWH;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -20,19 +18,19 @@ import java.util.stream.Collectors;
 @RequestMapping("/destinatii")
 public class DestinatieController {
 
-    private final DestinatieServiceOLTP destinatieServiceOLTP;
-    private final DestinatieServiceWH destinatieServiceDW;
+    private final DestinatieServiceLow destinatieServiceLow;
+    private final DestinatieServiceNonLow destinatieServiceDW;
     private final MapperOLTP mapperOLTP;
     private final MapperWH mapperWH;
 
     @GetMapping("/OLTP")
     public List<DestinatieDtoOLTP> getAllOLTP() {
-        return destinatieServiceOLTP.findAll().stream().map(mapperOLTP::toDto).collect(Collectors.toList());
+        return destinatieServiceLow.findAll().stream().map(mapperOLTP::toDto).collect(Collectors.toList());
     }
 
     @PostMapping("/OLTP")
     public DestinatieDtoOLTP addOLTP(@RequestBody DestinatieDtoOLTP reqDto) {
-        return mapperOLTP.toDto(destinatieServiceOLTP.add(reqDto));
+        return mapperOLTP.toDto(destinatieServiceLow.add(reqDto));
     }
 
     @GetMapping("/WH")

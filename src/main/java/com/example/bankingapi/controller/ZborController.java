@@ -2,10 +2,10 @@ package com.example.bankingapi.controller;
 
 import com.example.bankingapi.dto.oltp.ZborDtoOLTP;
 import com.example.bankingapi.dto.warehouse.ZborDtoWH;
-import com.example.bankingapi.service.oltp.MapperOLTP;
-import com.example.bankingapi.service.oltp.ZborServiceOLTP;
-import com.example.bankingapi.service.warehouse.MapperWH;
-import com.example.bankingapi.service.warehouse.ZborServiceWH;
+import com.example.bankingapi.service.lowcost.MapperOLTP;
+import com.example.bankingapi.service.lowcost.ZborServiceLow;
+import com.example.bankingapi.service.nonlowcost.MapperWH;
+import com.example.bankingapi.service.nonlowcost.ZborServiceNonLow;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -21,8 +21,8 @@ import java.util.stream.Collectors;
 @RequestMapping("/zboruri")
 public class ZborController {
 
-    private final ZborServiceOLTP zborServiceOLTP;
-    private final ZborServiceWH zborServiceWH;
+    private final ZborServiceLow zborServiceLow;
+    private final ZborServiceNonLow zborServiceNonLow;
     private final MapperOLTP mapperOLTP;
     private final MapperWH mapperWH;
 
@@ -31,12 +31,12 @@ public class ZborController {
                                         @RequestParam("pageNumber") Integer pageNumber,
                                         @RequestParam("pageSize") Integer pageSize) {
         PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, Sort.by("id").descending());
-        return zborServiceOLTP.findAll(pageRequest).stream().map(mapperOLTP::toDto).collect(Collectors.toList());
+        return zborServiceLow.findAll(pageRequest).stream().map(mapperOLTP::toDto).collect(Collectors.toList());
     }
 
     @PostMapping("/OLTP")
     public ZborDtoOLTP addOLTP(@RequestBody ZborDtoOLTP reqDto) {
-        return mapperOLTP.toDto(zborServiceOLTP.add(reqDto));
+        return mapperOLTP.toDto(zborServiceLow.add(reqDto));
     }
 
     @GetMapping("/WH")
@@ -44,7 +44,7 @@ public class ZborController {
                                         @RequestParam("pageNumber") Integer pageNumber,
                                         @RequestParam("pageSize") Integer pageSize) {
         PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, Sort.by("id").descending());
-        return zborServiceWH.findAll(pageRequest).stream().map(mapperWH::toDto).collect(Collectors.toList());
+        return zborServiceNonLow.findAll(pageRequest).stream().map(mapperWH::toDto).collect(Collectors.toList());
     }
 //
 //    @PostMapping("/WH")

@@ -1,8 +1,7 @@
 package com.example.bankingapi.controller;
 
 import com.example.bankingapi.dto.warehouse.TimpDtoWH;
-import com.example.bankingapi.service.warehouse.MapperWH;
-import com.example.bankingapi.service.warehouse.TimpServiceWH;
+import com.example.bankingapi.service.nonlowcost.MapperWH;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
