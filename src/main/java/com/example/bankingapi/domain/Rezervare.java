@@ -33,7 +33,7 @@ public class Rezervare {
 
     @ManyToOne
     @JoinColumn(name = "CLIENT_ID")
-    private ClientDatePersonale clientDatePersonale;
+    private ClientNonGDPR clientNonGDPR;
 
     @ManyToOne
     @JoinColumn(name = "ZBOR_ID")
@@ -42,10 +42,6 @@ public class Rezervare {
     @ManyToOne
     @JoinColumn(name = "CLASA_ZBOR_ID")
     private ClasaZbor clasaZbor;
-
-    @ManyToOne
-    @JoinColumn(name = "METODA_PLATA_ID")
-    private MetodaPlata metodaPlata;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "PLATA_ID")

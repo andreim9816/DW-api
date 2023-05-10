@@ -1,21 +1,14 @@
-package com.example.bankingapi.domain;
+package com.example.bankingapi.dto;
 
 import lombok.*;
 
-import javax.persistence.*;
-
-@Entity
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Aeronava {
-    @Id
-    @Column(name = "AERONAVA_ID")
+public class AeronavaDto {
     private String id;
-
     private String producator;
-
     private String nume;
 }

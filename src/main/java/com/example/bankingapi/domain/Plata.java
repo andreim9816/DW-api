@@ -19,8 +19,6 @@ public class Plata {
     @Column(name = "PLATA_ID")
     private Long id;
 
-    private String denumire;
-
     @Column(name = "SUMA_TOTALA")
     private Double sumaTotala;
 

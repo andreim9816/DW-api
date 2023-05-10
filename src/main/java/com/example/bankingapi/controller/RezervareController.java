@@ -1,11 +1,8 @@
 package com.example.bankingapi.controller;
 
-import com.example.bankingapi.dto.oltp.RezervareDtoOLTP;
-import com.example.bankingapi.dto.warehouse.RezervareDtoWH;
-import com.example.bankingapi.service.lowcost.MapperOLTP;
-import com.example.bankingapi.service.lowcost.RezervariServiceLow;
-import com.example.bankingapi.service.nonlowcost.MapperWH;
-import com.example.bankingapi.service.nonlowcost.RezervariServiceNonwLow;
+import com.example.bankingapi.dto.RezervareDto;
+import com.example.bankingapi.service.Mapper;
+import com.example.bankingapi.service.RezervareService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -21,34 +18,45 @@ import java.util.stream.Collectors;
 @RequestMapping("/rezervari")
 public class RezervareController {
 
-    private final RezervariServiceLow rezervariServiceLow;
-    private final RezervariServiceNonwLow rezervariServiceNonwLow;
-    private final MapperOLTP mapperOLTP;
-    private final MapperWH mapperWH;
+    private final RezervareService rezervareService;
+    private final Mapper mapper;
 
-    @GetMapping("/OLTP")
-    public List<RezervareDtoOLTP> getAllOLTP(@RequestParam("sortOrder") String sortOrder,
-                                             @RequestParam("pageNumber") Integer pageNumber,
-                                             @RequestParam("pageSize") Integer pageSize) {
+    @GetMapping("/low")
+    public List<RezervareDto> getAllLow(@RequestParam("sortOrder") String sortOrder,
+                                        @RequestParam("pageNumber") Integer pageNumber,
+                                        @RequestParam("pageSize") Integer pageSize) {
         PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, Sort.by("id").descending());
-        return rezervariServiceLow.findAll(pageRequest).stream().map(mapperOLTP::toDto).collect(Collectors.toList());
+        return rezervareService.findAllLow(pageRequest).stream().map(mapper::toDto).collect(Collectors.toList());
     }
 
-    @PostMapping("/OLTP")
-    public RezervareDtoOLTP addOLTP(@RequestBody RezervareDtoOLTP reqDto) {
-        return mapperOLTP.toDto(rezervariServiceLow.add(reqDto));
-    }
-
-    @GetMapping("/WH")
-    public List<RezervareDtoWH> getAllWH(@RequestParam("sortOrder") String sortOrder,
-                                         @RequestParam("pageNumber") Integer pageNumber,
-                                         @RequestParam("pageSize") Integer pageSize) {
+    @GetMapping("/non-low")
+    public List<RezervareDto> findAllNonLow(@RequestParam("sortOrder") String sortOrder,
+                                            @RequestParam("pageNumber") Integer pageNumber,
+                                            @RequestParam("pageSize") Integer pageSize) {
         PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, Sort.by("id").descending());
-        return rezervariServiceNonwLow.findAll(pageRequest).stream().map(mapperWH::toDto).collect(Collectors.toList());
+        return rezervareService.findAllNonLow(pageRequest).stream().map(mapper::toDto).collect(Collectors.toList());
     }
-//
-//    @PostMapping("/WH")
-//    public ClasaZborDtoWH addWH(@RequestBody ClasaZborDtoWH reqDto) {
-//        return mapperWH.toDto(clasaZborServiceWH.add(reqDto));
-//    }
+
+    @GetMapping("/global")
+    public List<RezervareDto> findAllGlobal(@RequestParam("sortOrder") String sortOrder,
+                                            @RequestParam("pageNumber") Integer pageNumber,
+                                            @RequestParam("pageSize") Integer pageSize) {
+        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, Sort.by("id").descending());
+        return rezervareService.findAllGlobal(pageRequest).stream().map(mapper::toDto).collect(Collectors.toList());
+    }
+
+    @PostMapping("/low")
+    public RezervareDto addLow(@RequestBody RezervareDto reqDto) {
+        return mapper.toDto(rezervareService.addLow(reqDto));
+    }
+
+    @PostMapping("/non-low")
+    public RezervareDto addNonLow(@RequestBody RezervareDto reqDto) {
+        return mapper.toDto(rezervareService.addNonLow(reqDto));
+    }
+
+    @PostMapping("/global")
+    public RezervareDto addGlobal(@RequestBody RezervareDto reqDto) {
+        return mapper.toDto(rezervareService.addGlobal(reqDto));
+    }
 }

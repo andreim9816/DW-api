@@ -3,16 +3,16 @@ server.servlet.context-path: /api
 
 #LOWCOST
 spring.datasource.jdbc-url: jdbc:oracle:thin:@//localhost:1521/orclpdb
-spring.datasource.username: dbb_admin
-spring.datasource.password: dbb_admin
+spring.datasource.username: bdd_admin
+spring.datasource.password: bdd_admin
 spring.datasource.driver-class-name: oracle.jdbc.OracleDriver
 #spring.datasource.hikari.jdbc-url: ${spring.datasource.url}
 #spring.datasource.hikari.jdbcUrl: ${spring.datasource.url}
 
 #NON_LOWCOST
 nonlowcost.datasource.jdbc-url: jdbc:oracle:thin:@//localhost:1521/orclpdb_2
-nonlowcost.datasource.username: dbb_admin
-nonlowcost.datasource.password: dbb_admin
+nonlowcost.datasource.username: bdd_admin
+nonlowcost.datasource.password: bdd_admin
 nonlowcost.datasource.driver-class-name: oracle.jdbc.OracleDriver
 
 #GLOBAL

@@ -11,8 +11,8 @@ import java.util.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "CLIENT")
-public class Client {
+@Table(name = "CLIENT_NONGDPR")
+public class ClientNonGDPR {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "client_seq")
     @SequenceGenerator(sequenceName = "client_seq", allocationSize = 1, name = "client_seq")

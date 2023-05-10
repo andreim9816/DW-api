@@ -1,4 +1,4 @@
-package com.example.bankingapi.dto.oltp;
+package com.example.bankingapi.dto;
 
 import lombok.*;
 
@@ -9,7 +9,7 @@ import java.util.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ZborDtoOLTP {
+public class ZborDto {
     private Long id;
     private String operatorId;
     private String aeronavaId;

@@ -10,8 +10,8 @@ import javax.persistence.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "CLIENT_DATE_PERSONALE")
-public class ClientDatePersonale {
+@Table(name = "CLIENT_GDPR")
+public class ClientGDPR {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "client_seq")
     @SequenceGenerator(sequenceName = "client_seq", allocationSize = 1, name = "client_seq")

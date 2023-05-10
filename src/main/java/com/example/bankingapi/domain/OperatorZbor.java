@@ -22,9 +22,9 @@ public class OperatorZbor {
     private String id;
 
     @Column(name = "NUME")
-    private String denumire;
+    private String nume;
 
-    @Column(name = "LOW_COST")
-    private Boolean isLowCost;
+    @Column(name = "tip")
+    private String tip;
 
 }

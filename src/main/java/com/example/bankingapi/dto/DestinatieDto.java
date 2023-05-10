@@ -1,4 +1,4 @@
-package com.example.bankingapi.dto.oltp;
+package com.example.bankingapi.dto;
 
 import lombok.*;
 
@@ -7,8 +7,8 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class DestinatieDtoOLTP {
+public class DestinatieDto {
     private String id;
     private String oras;
-    private String stat;
+    private String statId;
 }

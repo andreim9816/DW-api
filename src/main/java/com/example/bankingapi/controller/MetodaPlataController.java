@@ -1,45 +1,49 @@
 package com.example.bankingapi.controller;
 
-import com.example.bankingapi.dto.oltp.MetodaPlataDtoOLTP;
-import com.example.bankingapi.service.lowcost.MapperOLTP;
-import com.example.bankingapi.service.lowcost.MetodaPlataServiceLow;
-import com.example.bankingapi.service.nonlowcost.MapperWH;
-import com.example.bankingapi.service.nonlowcost.MetodaPlataServiceNonLow;
+import com.example.bankingapi.dto.MetodaPlataDto;
+import com.example.bankingapi.service.Mapper;
+import com.example.bankingapi.service.MetodaPlataService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Validated
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/metode-plata")
 public class MetodaPlataController {
 
-    private final MetodaPlataServiceLow metodaPlataServiceLow;
-    private final MetodaPlataServiceNonLow metodaPlataServiceNonLow;
-    private final MapperOLTP mapperOLTP;
-    private final MapperWH mapperWH;
+    private final MetodaPlataService metodaPlataService;
+    private final Mapper mapper;
 
-    @GetMapping("/OLTP")
-    public List<MetodaPlataDtoOLTP> getAllOLTP() {
-        return metodaPlataServiceLow.findAll().stream().map(mapperOLTP::toDto).collect(Collectors.toList());
+    @GetMapping("/low")
+    public List<MetodaPlataDto> getAllLow() {
+        return metodaPlataService.findAllLow().stream().map(mapper::toDto).collect(Collectors.toList());
     }
 
-    @PostMapping("/OLTP")
-    public MetodaPlataDtoOLTP addOLTP(@RequestBody MetodaPlataDtoOLTP reqDto) {
-        return mapperOLTP.toDto(metodaPlataServiceLow.add(reqDto));
+    @GetMapping("/non-low")
+    public List<MetodaPlataDto> findAllNonLow() {
+        return metodaPlataService.findAllNonLow().stream().map(mapper::toDto).collect(Collectors.toList());
     }
 
-    @GetMapping("/WH")
-    public List<MetodaPlataDtoOLTP> getAllWH() {
-        return metodaPlataServiceNonLow.findAll().stream().map(mapperWH::toDto).collect(Collectors.toList());
+    @GetMapping("/global")
+    public List<MetodaPlataDto> findAllGlobal() {
+        return metodaPlataService.findAllGlobal().stream().map(mapper::toDto).collect(Collectors.toList());
     }
-//
-//    @PostMapping("/WH")
-//    public ClasaZborDtoWH addWH(@RequestBody ClasaZborDtoWH reqDto) {
-//        return mapperWH.toDto(clasaZborServiceWH.add(reqDto));
-//    }
+
+    @PostMapping("/low")
+    public MetodaPlataDto addLow(@RequestBody MetodaPlataDto reqDto) {
+        return mapper.toDto(metodaPlataService.addLow(reqDto));
+    }
+
+    @PostMapping("/non-low")
+    public MetodaPlataDto addNonLow(@RequestBody MetodaPlataDto reqDto) {
+        return mapper.toDto(metodaPlataService.addNonLow(reqDto));
+    }
+
+    @PostMapping("/global")
+    public MetodaPlataDto addGlobal(@RequestBody MetodaPlataDto reqDto) {
+        return mapper.toDto(metodaPlataService.addGlobal(reqDto));
+    }
 }

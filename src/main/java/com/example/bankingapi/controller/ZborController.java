@@ -1,11 +1,8 @@
 package com.example.bankingapi.controller;
 
-import com.example.bankingapi.dto.oltp.ZborDtoOLTP;
-import com.example.bankingapi.dto.warehouse.ZborDtoWH;
-import com.example.bankingapi.service.lowcost.MapperOLTP;
-import com.example.bankingapi.service.lowcost.ZborServiceLow;
-import com.example.bankingapi.service.nonlowcost.MapperWH;
-import com.example.bankingapi.service.nonlowcost.ZborServiceNonLow;
+import com.example.bankingapi.dto.ZborDto;
+import com.example.bankingapi.service.Mapper;
+import com.example.bankingapi.service.ZborService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -20,35 +17,46 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @RequestMapping("/zboruri")
 public class ZborController {
+    private final ZborService zborService;
+    private final Mapper mapper;
 
-    private final ZborServiceLow zborServiceLow;
-    private final ZborServiceNonLow zborServiceNonLow;
-    private final MapperOLTP mapperOLTP;
-    private final MapperWH mapperWH;
-
-    @GetMapping("/OLTP")
-    public List<ZborDtoOLTP> getAllOLTP(@RequestParam("sortOrder") String sortOrder,
-                                        @RequestParam("pageNumber") Integer pageNumber,
-                                        @RequestParam("pageSize") Integer pageSize) {
+    @GetMapping("/low")
+    public List<ZborDto> getAllLow(@RequestParam("sortOrder") String sortOrder,
+                                   @RequestParam("pageNumber") Integer pageNumber,
+                                   @RequestParam("pageSize") Integer pageSize) {
         PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, Sort.by("id").descending());
-        return zborServiceLow.findAll(pageRequest).stream().map(mapperOLTP::toDto).collect(Collectors.toList());
+        return zborService.findAllLow(pageRequest).stream().map(mapper::toDto).collect(Collectors.toList());
     }
 
-    @PostMapping("/OLTP")
-    public ZborDtoOLTP addOLTP(@RequestBody ZborDtoOLTP reqDto) {
-        return mapperOLTP.toDto(zborServiceLow.add(reqDto));
-    }
-
-    @GetMapping("/WH")
-    public List<ZborDtoWH> getAllWH(@RequestParam("sortOrder") String sortOrder,
-                                        @RequestParam("pageNumber") Integer pageNumber,
-                                        @RequestParam("pageSize") Integer pageSize) {
+    @GetMapping("/non-low")
+    public List<ZborDto> findAllNonLow(@RequestParam("sortOrder") String sortOrder,
+                                       @RequestParam("pageNumber") Integer pageNumber,
+                                       @RequestParam("pageSize") Integer pageSize) {
         PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, Sort.by("id").descending());
-        return zborServiceNonLow.findAll(pageRequest).stream().map(mapperWH::toDto).collect(Collectors.toList());
+        return zborService.findAllNonLow(pageRequest).stream().map(mapper::toDto).collect(Collectors.toList());
     }
-//
-//    @PostMapping("/WH")
-//    public ClasaZborDtoWH addWH(@RequestBody ClasaZborDtoWH reqDto) {
-//        return mapperWH.toDto(clasaZborServiceWH.add(reqDto));
-//    }
+
+    @GetMapping("/global")
+    public List<ZborDto> findAllGlobal(@RequestParam("sortOrder") String sortOrder,
+                                       @RequestParam("pageNumber") Integer pageNumber,
+                                       @RequestParam("pageSize") Integer pageSize) {
+        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, Sort.by("id").descending());
+        return zborService.findAllGlobal(pageRequest).stream().map(mapper::toDto).collect(Collectors.toList());
+    }
+
+    @PostMapping("/low")
+    public ZborDto addLow(@RequestBody ZborDto reqDto) {
+        return mapper.toDto(zborService.addLow(reqDto));
+    }
+
+    @PostMapping("/non-low")
+    public ZborDto addNonLow(@RequestBody ZborDto reqDto) {
+        return mapper.toDto(zborService.addNonLow(reqDto));
+    }
+
+    @PostMapping("/global")
+    public ZborDto addGlobal(@RequestBody ZborDto reqDto) {
+        return mapper.toDto(zborService.addGlobal(reqDto));
+    }
+
 }
