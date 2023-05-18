@@ -15,9 +15,7 @@ public class RezervareDto {
     private Long nrPasageriFemei;
     private Long nrPasageriBarbati;
     private Date dataRezervare;
-    private Double sumaTotala;
     private Long clientId;
     private Long zborId;
     private Long clasaZborId;
-    private Long metodaPlataId;
 }

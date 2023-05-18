@@ -14,8 +14,8 @@ import java.util.Date;
 public class Plata {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "plata_seq")
-    @SequenceGenerator(sequenceName = "plata_seq", allocationSize = 1, name = "plata_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_plata")
+    @SequenceGenerator(sequenceName = "seq_plata", allocationSize = 1, name = "seq_plata")
     @Column(name = "PLATA_ID")
     private Long id;
 
@@ -29,6 +29,7 @@ public class Plata {
     @JoinColumn(name = "METODA_PLATA_ID")
     private MetodaPlata metodaPlata;
 
-    @OneToOne(mappedBy = "plata")
+    @OneToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "REZERVARE_ID")
     private Rezervare rezervare;
 }

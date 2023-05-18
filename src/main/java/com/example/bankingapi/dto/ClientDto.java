@@ -11,6 +11,10 @@ import java.util.Date;
 @AllArgsConstructor
 public class ClientDto {
     private Long id;
+    private String nume;
+    private String prenume;
+    private String email;
+    private String numarTelefon;
     private Boolean premium;
     private Date dataInregistrare;
 }

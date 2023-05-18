@@ -14,8 +14,8 @@ import java.util.Date;
 public class Zbor {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "zbor_seq")
-    @SequenceGenerator(sequenceName = "zbor_seq", allocationSize = 1, name = "zbor_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_zbor")
+    @SequenceGenerator(sequenceName = "seq_zbor", allocationSize = 1, name = "seq_zbor")
     @Column(name = "ZBOR_ID")
     private Long id;
 
@@ -23,8 +23,9 @@ public class Zbor {
     @JoinColumn(name = "OPERATOR_ID")
     private OperatorZbor operatorZbor;
 
-    @Column(name = "AERONAVA_ID")
-    private String aeronavaId;
+    @ManyToOne
+    @JoinColumn(name = "AERONAVA_ID")
+    private Aeronava aeronava;
 
     private Integer durata;
 

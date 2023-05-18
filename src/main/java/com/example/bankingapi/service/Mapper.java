@@ -2,7 +2,7 @@ package com.example.bankingapi.service;
 
 import com.example.bankingapi.domain.*;
 import com.example.bankingapi.dto.*;
-import com.example.bankingapi.repository.lowcost.*;
+import com.example.bankingapi.repository.global.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -10,15 +10,16 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class Mapper {
 
-    private final OperatorZborRepositoryLow operatorZborRepository;
-    private final DestinatieRepositoryLow destinatieRepository;
-    private final ClasaZborRepositoryLow clasaZborRepository;
-    private final MetodaPlataRepositoryLow metodaPlataRepository;
-    private final ClientRepositoryLow clientRepository;
-    private final ZborRepositoryLow zborRepository;
-    private final StatRepositoryLow statRepository;
-    private final RezervareRepositoryLow rezervareRepository;
-    private final AeronavaRepositoryLow aeronavaRepository;
+    private final OperatorZborRepository operatorZborRepository;
+    private final DestinatieRepository destinatieRepository;
+    private final ClasaZborRepository clasaZborRepository;
+    private final MetodaPlataRepository metodaPlataRepository;
+    private final ClientRepository clientRepository;
+    private final ZborRepository zborRepository;
+    private final AeronavaRepository aeronavaRepository;
+    private final StatRepository statRepository;
+    private final RezervareRepository rezervareRepository;
+    private final PlataRepository plataRepositoryLow;
 
     public Aeronava toEntity(AeronavaDto dto) {
         return Aeronava.builder()
@@ -50,24 +51,11 @@ public class Mapper {
                 .build();
     }
 
-
-    public ClientNonGDPR toEntity(ClientDto dto) {
-        return ClientNonGDPR.builder()
-                .isPremium(dto.getPremium())
+    public Client toEntity(ClientDto dto) {
+        return Client.builder()
+                .id(dto.getId())
+                .premium(dto.getPremium())
                 .dataInregistrare(dto.getDataInregistrare())
-                .build();
-    }
-
-    public ClientDto toDto(ClientNonGDPR entity) {
-        return ClientDto.builder()
-                .id(entity.getId())
-                .premium(entity.getIsPremium())
-                .dataInregistrare(entity.getDataInregistrare())
-                .build();
-    }
-
-    public ClientGDPR toEntity(ClientDatePersonaleDto dto) {
-        return ClientGDPR.builder()
                 .nume(dto.getNume())
                 .prenume(dto.getPrenume())
                 .email(dto.getEmail())
@@ -75,13 +63,15 @@ public class Mapper {
                 .build();
     }
 
-    public ClientDatePersonaleDto toDto(ClientGDPR entity) {
-        return ClientDatePersonaleDto.builder()
-                .id(entity.getId())
-                .nume(entity.getNume())
-                .prenume(entity.getPrenume())
-                .email(entity.getEmail())
-                .numarTelefon(entity.getNumarTelefon())
+    public ClientDto toDto(Client dto) {
+        return ClientDto.builder()
+                .id(dto.getId())
+                .premium(dto.getPremium())
+                .dataInregistrare(dto.getDataInregistrare())
+                .nume(dto.getNume())
+                .prenume(dto.getPrenume())
+                .email(dto.getEmail())
+                .numarTelefon(dto.getNumarTelefon())
                 .build();
     }
 
@@ -155,7 +145,7 @@ public class Mapper {
         return Zbor.builder()
                 .id(dto.getId())
                 .operatorZbor(operatorZborRepository.findById(dto.getOperatorId()).orElse(null))
-                .aeronavaId(dto.getAeronavaId())
+                .aeronava(aeronavaRepository.findById(dto.getAeronavaId()).orElse(null))
                 .durata(dto.getDurata())
                 .distanta(dto.getDistanta())
                 .totalLocuri(dto.getTotalLocuri())
@@ -171,7 +161,7 @@ public class Mapper {
         return ZborDto.builder()
                 .id(entity.getId())
                 .operatorId(entity.getOperatorZbor().getId())
-                .aeronavaId(entity.getAeronavaId())
+                .aeronavaId(entity.getAeronava().getId())
                 .durata(entity.getDurata())
                 .distanta(entity.getDistanta())
                 .totalLocuri(entity.getTotalLocuri())

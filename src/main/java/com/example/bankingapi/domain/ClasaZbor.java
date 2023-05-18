@@ -14,8 +14,8 @@ import javax.persistence.*;
 public class ClasaZbor {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "clasa_zbor_seq")
-    @SequenceGenerator(sequenceName = "clasa_zbor_seq", allocationSize = 1, name = "clasa_zbor_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_clasa_zbor")
+    @SequenceGenerator(sequenceName = "seq_clasa_zbor", allocationSize = 1, name = "seq_clasa_zbor")
     @Column(name = "CLASA_ZBOR_ID")
     private Long id;
 

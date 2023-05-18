@@ -14,8 +14,8 @@ import java.util.Date;
 public class Rezervare {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "rezervare_seq")
-    @SequenceGenerator(sequenceName = "rezervare_seq", allocationSize = 1, name = "rezervare_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_rezervare")
+    @SequenceGenerator(sequenceName = "seq_rezervare", allocationSize = 1, name = "seq_rezervare")
     @Column(name = "REZERVARE_ID")
     private Long id;
 
@@ -33,7 +33,7 @@ public class Rezervare {
 
     @ManyToOne
     @JoinColumn(name = "CLIENT_ID")
-    private ClientNonGDPR clientNonGDPR;
+    private Client clientNonGDPR;
 
     @ManyToOne
     @JoinColumn(name = "ZBOR_ID")
@@ -43,8 +43,6 @@ public class Rezervare {
     @JoinColumn(name = "CLASA_ZBOR_ID")
     private ClasaZbor clasaZbor;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "PLATA_ID")
+    @OneToOne(mappedBy = "rezervare")
     private Plata plata;
-
 }

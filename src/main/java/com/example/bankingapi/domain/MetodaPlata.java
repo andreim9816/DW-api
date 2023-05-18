@@ -14,8 +14,8 @@ import javax.persistence.*;
 public class MetodaPlata {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "metoda_plata_seq")
-    @SequenceGenerator(sequenceName = "metoda_plata_seq", allocationSize = 1, name = "metoda_plata_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_metoda_plata")
+    @SequenceGenerator(sequenceName = "seq_metoda_plata", allocationSize = 1, name = "seq_metoda_plata")
     @Column(name = "METODA_PLATA_ID")
     private Long id;
 
